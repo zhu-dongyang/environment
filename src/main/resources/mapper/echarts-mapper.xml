@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdy.environment.dao.EchartsMapper">
+
+    <sql id="selectFields">
+        id, tem, hum, gas, o, light, other, update_time, date
+    </sql>
+
+    <select id="selectList" resultType="Echarts">
+        select <include refid="selectFields"></include>
+        from environment
+    </select>
+
+
+</mapper>

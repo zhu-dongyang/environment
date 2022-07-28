@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="1">
+    <title>环境实时监测系统</title>
+</head>
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.0/echarts.min.js"></script>
+    <div id="line" style="width: 1000px; height: 800px"></div>
+
+
+    <script>
+
+        var lineOption = {
+            xAxis: {
+                type: 'category',
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            animation: false,
+            series: [
+                {
+                    data: [],
+                    type: 'line',
+                    smooth: true
+                }
+            ]
+        };
+
+        var lineDom = document.getElementById('line');
+        var lineChart = echarts.init(lineDom);
+
+
+        fetch("/echarts").then(response => response.json()).then(res => {
+            // 折线图
+            const date = res.map(v => v.Date);
+            console.log(date)
+            lineOption.xAxis.data = date
+
+            const tem = res.map(v => v.tem);
+            console.log(tem)
+            lineOption.series[0].data = tem
+
+            lineChart.setOption(lineOption)
+
+        })
+
+    </script>
+
+</body>
+</html>
